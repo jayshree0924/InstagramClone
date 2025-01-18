@@ -9,16 +9,16 @@ export default function SplashScreen() {
   useEffect(() => {
     const timeout = setTimeout(() => {
       navigation.navigate('Login');
-    }, 3000);
+    }, 1000);
 
     return () => clearTimeout(timeout);
   }, [navigation]);
 
   return (
     <View style={styles.container}>
-      <Image source={require('../../assets/instagram.png')} style={styles.loader} />
+      <Image source={require('../assets/instagram.png')} style={styles.loader} />
       <Text style={{ color: '#fff', fontSize: 15, marginTop: 250 }}>from</Text>
-      <Image source={require('../../assets/meta1.png')} style={styles.meta} />
+      <Image source={require('../assets/meta1.png')} style={styles.meta} />
     </View>
   )
 }

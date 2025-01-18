@@ -1,32 +1,10 @@
 import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native'
 import React from 'react'
-import { Pim } from '@/constants/ImageCons'
-import { useFonts } from 'expo-font';
+import { Pim } from '@/app/constants/ImageCons'
 import Ionicons from 'react-native-vector-icons/Ionicons'
-import { useNavigation } from 'expo-router';
-
+import NavBar from '../constants/NavCons'
 
 const Profile = () => {
-
-  const [fontsLoaded] = useFonts({
-          'Italic': require('../../assets/fonts/KingsmanDemo-1GVgg.ttf'),
-          'Regular': require('../../assets/fonts/Glametrix-oj9A.otf'),
-          'Light': require('../../assets/fonts/GlametrixLight-0zjo.otf'),
-          'Bold': require('../../assets/fonts/GlametrixBold-4dW6.otf')
-      });
-  
-
-  const navigation = useNavigation()
-
-  const homePress = () => {
-    navigation.navigate('HomeScreen', {})
-  }
-  const explorePress = () => {
-    navigation.navigate('Explore', {})
-  }
-  const profilePress = () => {
-    navigation.navigate('Profile', {})
-  }
 
   return (
     <View style={{ flex: 1, backgroundColor: 'black' }}>
@@ -37,8 +15,9 @@ const Profile = () => {
           <TouchableOpacity><Ionicons name='duplicate-outline' color={'white'} size={30} style={{ marginRight: 10 }} /></TouchableOpacity>
           <TouchableOpacity><Ionicons name='settings-outline' color={'white'} size={30} style={{ marginRight: 10 }} /></TouchableOpacity>
         </View>
+
         <View style={{ flexDirection: 'row', marginBottom: 10 }}>
-          <Image source={Pim.girl} style={{ height: 90, width: 90, borderRadius: 50, marginRight: 45 }} />
+          <Image source={Pim.wall} style={{ height: 90, width: 90, borderRadius: 50, marginRight: 45 }} />
           <View style={{ justifyContent: 'space-between', flexDirection: 'row' }}>
             <View style={styles.countContainer}>
               <Text style={styles.count}>3</Text>
@@ -54,6 +33,7 @@ const Profile = () => {
             </View>
           </View>
         </View>
+
         <Text style={{ fontSize: 23, color: 'white', fontFamily: 'Bold' }}>Alice Jhonson</Text>
         <Text style={{ fontSize: 18, color: 'white', fontFamily: 'Regular' }}>ALICE JHONSON</Text>
 
@@ -64,21 +44,11 @@ const Profile = () => {
         </View>
 
         <View style={{ flexDirection: 'row', }}>
-          <TouchableOpacity>
-            <View style={styles.highlightContainer}><Image source={Pim.cafe} style={styles.highlight} /></View>
-          </TouchableOpacity>
-          <TouchableOpacity>
-            <View style={styles.highlightContainer}><Image source={Pim.ferris} style={styles.highlight} /></View>
-          </TouchableOpacity>
-          <TouchableOpacity>
-            <View style={styles.highlightContainer}><Image source={Pim.dior} style={styles.highlight} /></View>
-          </TouchableOpacity>
-          <TouchableOpacity>
-            <View style={styles.highlightContainer}><Image source={Pim.makeup} style={styles.highlight} /></View>
-          </TouchableOpacity>
-          <TouchableOpacity>
-            <View style={styles.highlightContainer}><Image source={Pim.coffee} style={styles.highlight} /></View>
-          </TouchableOpacity>
+          <TouchableOpacity><View style={styles.highlightContainer}><Image source={Pim.cafe} style={styles.highlight} /></View></TouchableOpacity>
+          <TouchableOpacity><View style={styles.highlightContainer}><Image source={Pim.ferris} style={styles.highlight} /></View></TouchableOpacity>
+          <TouchableOpacity><View style={styles.highlightContainer}><Image source={Pim.dior} style={styles.highlight} /></View></TouchableOpacity>
+          <TouchableOpacity><View style={styles.highlightContainer}><Image source={Pim.makeup} style={styles.highlight} /></View></TouchableOpacity>
+          <TouchableOpacity><View style={styles.highlightContainer}><Image source={Pim.coffee} style={styles.highlight} /></View></TouchableOpacity>
         </View>
 
         <View style={{ flexDirection: 'row', justifyContent: 'space-around', marginTop: 20, marginRight: 10 }}>
@@ -88,19 +58,13 @@ const Profile = () => {
         </View>
       </View>
 
-
-      <View style={{ flexDirection: 'row', justifyContent: 'space-around', marginTop: 20}}>
-        <Image source={Pim.wall} style={styles.post} />
+      <View style={{ flexDirection: 'row', justifyContent: 'space-around', marginTop: 20 }}>
+        <Image source={Pim.dior} style={styles.post} />
         <Image source={Pim.bracelets} style={styles.post} />
-        <Image source={Pim.dock} style={styles.post} />
+        <Image source={Pim.subway} style={styles.post} />
       </View>
 
-
-      <View style={styles.nav}>
-        <TouchableOpacity onPress={homePress}><Ionicons name='home-outline' color={'white'} size={30} /></TouchableOpacity>
-        <TouchableOpacity onPress={explorePress}><Ionicons name='search-outline' color={'white'} size={30} /></TouchableOpacity>
-        <TouchableOpacity onPress={profilePress}><Ionicons name='person-outline' color={'white'} size={30} /></TouchableOpacity>
-      </View>
+      <NavBar />
     </View>
   )
 }

@@ -3,29 +3,12 @@ import { View, Text, StyleSheet, ScrollView, Image, TouchableOpacity, TextInput,
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { useFonts } from 'expo-font';
 import { useNavigation } from '@react-navigation/native';
+
 import users from '../users.json'
+import NavBar from '../constants/NavCons';
 
 
 export default function Explore(/*{ route }*/) {
-    const [fontsLoaded] = useFonts({
-        'Italic': require('../../assets/fonts/KingsmanDemo-1GVgg.ttf'),
-        'Regular': require('../../assets/fonts/Glametrix-oj9A.otf'),
-        'Light': require('../../assets/fonts/GlametrixLight-0zjo.otf'),
-        'Bold': require('../../assets/fonts/GlametrixBold-4dW6.otf')
-    });
-
-    const navigation = useNavigation()
-
-    const homePress = () => {
-        navigation.navigate('HomeScreen', {})
-    }
-    const explorePress = () => {
-        navigation.navigate('Explore', {})
-    }
-    const profilePress = () => {
-        navigation.navigate('Profile', {})
-    }
-
     const [searchQuery, setSearchQuery] = useState('');
     const [filteredUsers, setFilteredUsers] = useState(users);
 
@@ -66,24 +49,20 @@ export default function Explore(/*{ route }*/) {
                     placeholder="Search..."
                     placeholderTextColor="#888"
                     cursorColor={"white"}
-                    style={{ color: '#fff', flex:1 }}
+                    style={{ color: '#fff', flex: 1 }}
                 >
                 </TextInput>
             </View>
-                <FlatList
-                    data={filteredUsers}
-                    keyExtractor={(item) => item.id.toString()}
-                    renderItem={renderUserItem}
-                    style={styles.listContainer}
-                    ListEmptyComponent={
-                        <Text style={styles.emptyText}>No users found</Text>
-                    }
-                />
-            <View style={styles.nav}>
-                <TouchableOpacity onPress={homePress}><Ionicons name='home-outline' color={'white'} size={30} /></TouchableOpacity>
-                <TouchableOpacity onPress={explorePress}><Ionicons name='search-outline' color={'white'} size={30} /></TouchableOpacity>
-                <TouchableOpacity onPress={profilePress}><Ionicons name='person-outline' color={'white'} size={30} /></TouchableOpacity>
-            </View>
+            <FlatList
+                data={filteredUsers}
+                keyExtractor={(item) => item.id.toString()}
+                renderItem={renderUserItem}
+                style={styles.listContainer}
+                ListEmptyComponent={
+                    <Text style={styles.emptyText}>No users found</Text>
+                }
+            />
+            <NavBar />
         </View>
 
     );

@@ -2,7 +2,6 @@ import { StyleSheet, Text, View, Image, TextInput, TouchableOpacity, TouchableWi
 import React, { useEffect, useState } from 'react'
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { useNavigation } from '@react-navigation/native';
-import { dismissAll } from 'expo-router/build/global-state/routing';
 
 
 export default function LoginScreen() {
@@ -49,13 +48,13 @@ export default function LoginScreen() {
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
         if (!email || email.length <= 0) {
-            newErrors.email = "Email cannot be empty!";
+            //newErrors.email = "Email cannot be empty!";
         } else if (!emailRegex.test(email)) {
             newErrors.email = "Invalid email format!";
         }
 
         if (!password || password.length <= 0) {
-            newErrors.password = "Password cannot be empty!";
+            //newErrors.password = "Password cannot be empty!";
         }
 
         setError(newErrors);

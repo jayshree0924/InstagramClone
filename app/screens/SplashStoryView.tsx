@@ -1,7 +1,7 @@
 import { StyleSheet, Image, View, Text, ImageBackground, TextInput } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { useNavigation } from '@react-navigation/native';
-import { Pim, Sim } from '@/constants/ImageCons';
+import { Pim, Sim } from '@/app/constants/ImageCons';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 

@@ -1,35 +1,13 @@
 import React from 'react';
 import { View, Text, StyleSheet, ScrollView, Image, TouchableOpacity } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import { useFonts } from 'expo-font';
-import { useNavigation } from '@react-navigation/native';
-import PostSection from './PostSectionView';
-import Story from './StoryView';
+
+import PostSection from './custom/PostSectionView';
+import Story from './custom/StoryView';
+import NavBar from '../constants/NavCons';
 
 
 export default function HomeScreen(/*{ route }*/) {
-    const [fontsLoaded] = useFonts({
-        'Italic': require('../../assets/fonts/KingsmanDemo-1GVgg.ttf'),
-        'Regular': require('../../assets/fonts/Glametrix-oj9A.otf'),
-        'Light': require('../../assets/fonts/GlametrixLight-0zjo.otf'),
-        'Bold': require('../../assets/fonts/GlametrixBold-4dW6.otf')
-    });
-
-    const navigation = useNavigation()
-
-    const homePress = () => {
-        navigation.navigate('HomeScreen', {})
-    }
-
-    const explorePress = () => {
-        navigation.navigate('Explore', {})
-    }
-
-    const profilePress = () => {
-        navigation.navigate('Profile', {})
-    }
-
-
     // const { username } = route.params;
 
     return (
@@ -48,11 +26,7 @@ export default function HomeScreen(/*{ route }*/) {
                 <Story />
                 <PostSection />
             </ScrollView>
-            <View style={styles.nav}>
-                <TouchableOpacity onPress={homePress}><Ionicons name='home-outline' color={'white'} size={30} /></TouchableOpacity>
-                <TouchableOpacity onPress={explorePress}><Ionicons name='search-outline' color={'white'} size={30} /></TouchableOpacity>
-                <TouchableOpacity onPress={profilePress}><Ionicons name='person-outline' color={'white'} size={30} /></TouchableOpacity>
-            </View>
+            <NavBar />
         </View>
 
     );

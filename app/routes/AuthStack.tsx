@@ -2,8 +2,8 @@ import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 
-import LoginScreen from '../screens/LoginScreenView'
-import Register from '../screens/RegisterView'
+import LoginScreen from '../screens/auth/LoginScreenView'
+import Register from '../screens/auth/RegisterView'
 
 export type AuthStackPramList = {
     Login: undefined;

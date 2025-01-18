@@ -15,7 +15,7 @@ export default function Register() {
     const handleLoginPress = () => {
         console.log("Successfully logged in as " + name + " !");
         navigation.navigate('HomeScreen', {
-            username: name,
+            // username: name,
         })
     }
 
@@ -58,7 +58,9 @@ export default function Register() {
                 <TouchableOpacity
                     style={styles.loginButton}
                     onPress={handleLoginPress}
-                ><Text style={{ fontSize: 16, color: '#fff', textAlign: 'center', }}>Log in</Text></TouchableOpacity>
+                >
+                    <Text style={{ fontSize: 16, color: '#fff', textAlign: 'center', }}>Log in</Text>
+                </TouchableOpacity>
                 <TouchableOpacity><Text style={styles.reset}>Forgotten Password?</Text></TouchableOpacity>
                 <TouchableOpacity style={styles.register}><Text style={styles.registerText}>Create new account</Text></TouchableOpacity>
                 <Image source={require('../../assets/meta.png')} style={styles.meta} />
