@@ -1,0 +1,50 @@
+[
+    {
+        "id": 1,
+        "name": "Alice Johnson",
+        "image": "https://i.pinimg.com/originals/31/48/7f/31487f365f2007bd7e1443c447cec8e4.jpg",
+        "title": "ALICE JHONSON"
+    },
+    {
+        "id": 2,
+        "name": "Bob Smith",
+        "image": "https://down-my.img.susercontent.com/file/14a3e2a84dd4b0fa246ad880bf97705f",
+        "title": "BOB SMITH"
+    },
+    {
+        "id": 3,
+        "name": "Charlie Davis",
+        "image": "https://th.bing.com/th/id/R.aca03f97209994e9882bb0c7e395eed6?rik=WxRdm3UqWyv4IQ&pid=ImgRaw&r=0",
+        "title": "CHARLIE DAVIS"
+    },
+    {
+        "id": 4,
+        "name": "Diana Prince",
+        "image": "https://th.bing.com/th/id/R.5df91c8c41e2e50d870fd7db9725d8fb?rik=wX3s6bxBD1THPw&pid=ImgRaw&r=0",
+        "title": "DIANA PRINCE"
+    },
+    {
+        "id": 5,
+        "name": "Emily Grey",
+        "image": "https://th.bing.com/th/id/R.d69eccc00b59e30f4bdc9e679abf7c37?rik=2qvakW96YfCalw&pid=ImgRaw&r=0",
+        "title": "EMILY GREY"
+    },
+    {
+        "id": 6,
+        "name": "George Siem",
+        "image": "https://th.bing.com/th/id/R.cf80e2323b9f7f6c95ed5261a9a8f9fe?rik=VESK8qzj1yAQYg&pid=ImgRaw&r=0",
+        "title": "GEORGE SIEM"
+    },
+    {
+        "id": 7,
+        "name": "Hailey Patrick",
+        "image": "https://i.etsystatic.com/28078322/r/il/7bacc3/2987693767/il_fullxfull.2987693767_gw5g.jpg",
+        "title": "HAILEY PATRICK"
+    },
+    {
+        "id": 8,
+        "name": "William Murphy",
+        "image": "https://www.awakenthegreatnesswithin.com/wp-content/uploads/2020/09/Jake-Paul-Quotes-1024x640.jpg",
+        "title": "WILLIAM MURPHY"
+    }
+]
