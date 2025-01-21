@@ -3,7 +3,6 @@ import React, { useEffect, useState } from 'react'
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { useNavigation } from '@react-navigation/native';
 
-
 export default function LoginScreen() {
 
     const [isPasswordVisible, setPasswordVisible] = useState<boolean>(false);
@@ -66,6 +65,14 @@ export default function LoginScreen() {
         })
     }
 
+    const handlePasswordPress = () => {
+        navigation.navigate('Password', {})
+    }
+
+    const handleRegisterPress = () => {
+        navigation.navigate('Register', {})
+    }
+
     const [isDisabled, setIsDisabled] = useState(false)
     // useEffect(() => {
     //     setIsDisabled(!email || !password);
@@ -122,8 +129,8 @@ export default function LoginScreen() {
                         onPress={handleLoginPress}
                         disabled={isDisabled}
                     ><Text style={{ fontSize: 16, color: '#fff', textAlign: 'center', }}>Log in</Text></TouchableOpacity>
-                    <TouchableOpacity><Text style={styles.reset}>Forgotten Password?</Text></TouchableOpacity>
-                    <TouchableOpacity style={styles.register}><Text style={styles.registerText}>Create new account</Text></TouchableOpacity>
+                    <TouchableOpacity onPress={handlePasswordPress}><Text style={styles.reset}>Forgotten Password?</Text></TouchableOpacity>
+                    <TouchableOpacity onPress={handleRegisterPress} style={styles.register}><Text style={styles.registerText}>Create new account</Text></TouchableOpacity>
                     <Image source={require('../../assets/meta.png')} style={styles.meta} />
                 </View>
             </ScrollView>

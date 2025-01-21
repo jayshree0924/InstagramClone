@@ -1,8 +1,13 @@
 import { StyleSheet, Image, View, Text, ImageBackground, TextInput } from 'react-native'
 import React, { useEffect, useState } from 'react'
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import { Pim, Sim } from '@/app/constants/ImageCons';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+
+// const route = useRoute();
+// const { storyId } = route.params;
+
+// console.log('Story ID:', storyId);
 
 
 export default function SplashStory() {

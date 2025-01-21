@@ -1,18 +1,10 @@
 import { StyleSheet, Text, View, FlatList, Image, TouchableOpacity, ScrollView } from 'react-native'
 import React, { useEffect, useState } from 'react'
-import { useFonts } from 'expo-font';
-import { Sim } from '@/app/constants/ImageCons'
 import { Pim } from '@/app/constants/ImageCons'
 import { useNavigation } from 'expo-router';
+import { useFonts } from 'expo-font';
 
 export default function Story() {
-
-    const navigation = useNavigation()
-
-    const handlePress = () => {
-        navigation.navigate('SplashStory', {})
-    }
-
     const [fontsLoaded] = useFonts({
         'Italic': require('../../assets/fonts/KingsmanDemo-1GVgg.ttf'),
         'Regular': require('../../assets/fonts/Glametrix-oj9A.otf'),
@@ -20,14 +12,13 @@ export default function Story() {
         'Bold': require('../../assets/fonts/GlametrixBold-4dW6.otf')
     });
 
+    const navigation = useNavigation()
 
-    interface BoxItem {
-        id: string
-        name: string
-        image: string
-    }
+    const handlePress = () => {
+        navigation.navigate('SplashStory', {});
+    };
 
-    const data: BoxItem[] = [
+    const data = [
         { id: '1', name: 'Alice', image: Pim.wall },
         { id: '2', name: 'George', image: Pim.dior },
         { id: '3', name: 'Diana', image: Pim.paint },
@@ -40,32 +31,23 @@ export default function Story() {
         { id: '10', name: 'Carrie', image: Pim.coffee },
     ];
 
-    const BoxList: React.FC = () => {
-        return <ScrollView horizontal>
+    return (
+        <View style={styles.container}>
             <FlatList
                 data={data}
-                numColumns={100}
+                horizontal
                 renderItem={({ item }) => (
-
-                    <View style={{ justifyContent: 'center', marginLeft: 5 }}>
+                    <View style={styles.storyContainer}>
                         <TouchableOpacity onPress={handlePress} style={styles.story}>
                             <Image source={item.image} style={styles.storyImage} />
                         </TouchableOpacity>
                         <Text style={styles.storyName}>{item.name}</Text>
                     </View>
-
                 )}
-                keyExtractor={(item) => item.id} />;
-        </ScrollView>
-    };
-
-    return (
-        <View style={{ height: 120, borderBottomWidth: 1, borderBottomColor: '#212121' }}>
-            <BoxList />
+                keyExtractor={(item) => item.id}
+            />
         </View>
-    )
-
-
+    );
 
     // return (
     //     <View style={{ height: 120, borderBottomWidth: 1, borderBottomColor: '#212121' }}>
@@ -115,9 +97,20 @@ export default function Story() {
     //         </ScrollView>
     //     </View>
     // )
-}
-
+    
+};
 const styles = StyleSheet.create({
+    container: {
+        height: 120,
+        borderBottomWidth: 1,
+        borderBottomColor: '#212121',
+        marginTop: 10,
+        marginBottom: 10,
+    },
+    storyContainer: {
+        justifyContent: 'center',
+        marginLeft: 5,
+    },
     story: {
         height: 80,
         width: 80,
@@ -138,7 +131,7 @@ const styles = StyleSheet.create({
         fontFamily: 'Regular',
         fontSize: 20,
         marginTop: 3,
-        textAlign: 'center'
-    }
+        textAlign: 'center',
+    },
 
 })

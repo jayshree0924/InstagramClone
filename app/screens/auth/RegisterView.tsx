@@ -1,70 +1,133 @@
-import { StyleSheet, Text, View, Image, TextInput, TouchableOpacity, TouchableWithoutFeedback, Keyboard } from 'react-native'
-import React, { useState } from 'react'
+import { StyleSheet, Text, View, Image, TextInput, TouchableOpacity, TouchableWithoutFeedback, Keyboard, ScrollView } from 'react-native'
+import React, { useEffect, useState } from 'react'
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { useNavigation } from '@react-navigation/native';
 
-
-export default function Register() {
+export default function LoginScreen() {
 
     const [isPasswordVisible, setPasswordVisible] = useState<boolean>(false);
-    const [password, setPassword] = useState<string>('');
+    const [password, setPassword] = useState<string | undefined>();
 
     const navigation = useNavigation()
-    const [name, setName] = useState('');
-
-    const handleLoginPress = () => {
-        console.log("Successfully logged in as " + name + " !");
-        navigation.navigate('HomeScreen', {
-            // username: name,
-        })
-    }
+    const [name, setName] = useState<string | undefined>();
+    const [error, setError] = useState<loginError>({})
+    const [email, setEmail] = useState<string | undefined>('')
 
     const togglePasswordVisibility = () => {
         setPasswordVisible((prevState) => !prevState);
     };
 
+    interface loginError {
+        email?: string
+        password?: string
+    }
+
+    useEffect(() => {
+        validation();
+    }, [email, password]);
+
+    // const validation = () => {
+    //     var newErrors: loginError = {}
+    //     if (email && email.length <= 0) {
+    //         newErrors.email = "Invalid email!"
+    //         setError(newErrors)
+    //     } else {
+    //         setError(newErrors)
+    //     }
+    //     if (password && password.length <= 0) {
+    //         newErrors.password = "Password cannot be empty!"
+    //         setError(newErrors)
+    //     } else {
+    //         setError(newErrors)
+    //     }
+    // }
+
+    const validation = () => {
+        var newErrors: loginError = {};
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+        if (!email || email.length <= 0) {
+            //newErrors.email = "Email cannot be empty!";
+        } else if (!emailRegex.test(email)) {
+            newErrors.email = "Invalid email format!";
+        }
+
+        if (!password || password.length <= 0) {
+            //newErrors.password = "Password cannot be empty!";
+        }
+
+        setError(newErrors);
+    };
+
+    const handleLoginPress = () => {
+        navigation.navigate('Login', {
+            // username: name,
+        })
+    }
+
+    const handleContinue = () => {
+        navigation.navigate('HomeScreen', {})
+    }
+
+    const [isDisabled, setIsDisabled] = useState(false)
+    // useEffect(() => {
+    //     setIsDisabled(!email || !password);
+    // }, [email, password]);
+
+    const resetError = () => {
+
+    }
+
     return (
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-            <View style={styles.container}>
-                <Image source={require('../../assets/instagram.png')} style={styles.loader} />
-                <View style={styles.miniContainer}>
-                    <TextInput
-                        placeholder='Username, email address, mobile...'
-                        placeholderTextColor='#5f7889'
-                        cursorColor={'#fff'}
-                        value={name}
-                        onChangeText={setName}
-                        style={styles.input}></TextInput>
-                    <View style={[styles.input, { flexDirection: 'row', padding: 8 }]}>
+            <ScrollView>
+                <View style={styles.container}>
+                    <Image source={require('../../assets/instagram.png')} style={styles.loader} />
+                    <View style={styles.miniContainer}>
                         <TextInput
-                            placeholder='Password'
-                            value={password}
-                            onChangeText={(text) => setPassword(text)}
-                            secureTextEntry={!isPasswordVisible}
+                            placeholder='Username, email address, mobile...'
                             placeholderTextColor='#5f7889'
                             cursorColor={'#fff'}
-                            style={{ color: 'white', fontSize: 15, flex: 0.98 }}
-                        ></TextInput>
-                        <TouchableOpacity onPress={togglePasswordVisibility}>
-                            <Ionicons
-                                name={isPasswordVisible ? 'eye-off' : 'eye'}
-                                size={25}
-                                color={'#5f7889'}
-                                style={{ marginTop: 10 }}
-                            />
-                        </TouchableOpacity>
+                            value={email}
+                            onChangeText={setEmail}
+                            onFocus={resetError}
+                            style={styles.input}></TextInput>
+
+                        {error.email && <Text style={{ color: 'crimson', fontSize: 10, marginLeft: 10 }}>{error.email}</Text>}
+
+                        <View style={[styles.input, { flexDirection: 'row', padding: 8 }]}>
+                            <TextInput
+                                placeholder='Password'
+                                value={password}
+                                onChangeText={(text) => setPassword(text)}
+                                secureTextEntry={!isPasswordVisible}
+                                placeholderTextColor='#5f7889'
+                                cursorColor={'#fff'}
+                                style={{ color: 'white', fontSize: 15, flex: 0.98 }}
+                            ></TextInput>
+
+                            <TouchableOpacity onPress={togglePasswordVisibility}>
+                                <Ionicons
+                                    name={isPasswordVisible ? 'eye-off' : 'eye'}
+                                    size={25}
+                                    color={'#5f7889'}
+                                    style={{ marginTop: 10 }}
+                                />
+                            </TouchableOpacity>
+                        </View>
+
+                        {error.password && <Text style={{ color: 'crimson', fontSize: 10, marginLeft: 10 }}>{error.password}</Text>}
+
                     </View>
+                    <TouchableOpacity
+                        style={styles.loginButton}
+                        onPress={handleContinue}
+                        disabled={isDisabled}
+                    ><Text style={{ fontSize: 16, color: '#fff', textAlign: 'center', }}>Continue</Text></TouchableOpacity>
+                    <TouchableOpacity onPress={handleLoginPress} style={styles.login}><Text style={styles.registerText}>Already have an account?</Text></TouchableOpacity>
+                    <Image source={require('../../assets/meta.png')} style={styles.meta} />
                 </View>
-                <TouchableOpacity
-                    style={styles.loginButton}
-                    onPress={handleLoginPress}
-                >
-                    <Text style={{ fontSize: 16, color: '#fff', textAlign: 'center', }}>Log in</Text>
-                </TouchableOpacity>
-                <TouchableOpacity><Text style={styles.reset}>Forgotten Password?</Text></TouchableOpacity>
-                <TouchableOpacity style={styles.register}><Text style={styles.registerText}>Create new account</Text></TouchableOpacity>
-                <Image source={require('../../assets/meta.png')} style={styles.meta} />
-            </View>
+            </ScrollView>
         </TouchableWithoutFeedback>
     )
 }
@@ -73,7 +136,8 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         alignItems: 'center',
-        backgroundColor: '#163142'
+        backgroundColor: '#163142',
+        height: 810
     },
     loader: {
         height: 60,
@@ -109,14 +173,14 @@ const styles = StyleSheet.create({
         fontSize: 16,
         marginTop: 15
     },
-    register: {
+    login: {
         borderWidth: 1,
         borderColor: '#3cadff',
         borderRadius: 50,
         height: 50,
         width: 350,
         justifyContent: 'center',
-        marginTop: 140
+        marginTop: 180
     },
     registerText: {
         color: '#3cadff',

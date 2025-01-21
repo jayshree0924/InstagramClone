@@ -16,9 +16,9 @@ export default function SplashScreen() {
 
   return (
     <View style={styles.container}>
-      <Image source={require('../assets/instagram.png')} style={styles.loader} />
-      <Text style={{ color: '#fff', fontSize: 15, marginTop: 250 }}>from</Text>
-      <Image source={require('../assets/meta1.png')} style={styles.meta} />
+      <Image source={require('../../assets/instagram.png')} style={styles.loader} />
+      <Text style={styles.text}>from</Text>
+      <Image source={require('../../assets/meta1.png')} style={styles.meta} />
     </View>
   )
 }
@@ -27,15 +27,21 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: '#000',
     flex: 1,
+    justifyContent: 'center',
     alignItems: 'center',
   },
   loader: {
     height: 80,
     width: 80,
-    marginTop: 360
+  },
+  text: {
+    color: '#555',
+    fontSize: 15,
+    top: 295
   },
   meta: {
     height: 20,
-    width: 100
+    width: 100,
+    top: 300
   }
 })

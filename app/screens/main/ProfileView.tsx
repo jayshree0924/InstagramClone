@@ -2,9 +2,16 @@ import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native'
 import React from 'react'
 import { Pim } from '@/app/constants/ImageCons'
 import Ionicons from 'react-native-vector-icons/Ionicons'
-import NavBar from '../constants/NavCons'
+import NavBar from '../../constants/NavCons'
+import { useFonts } from 'expo-font'
 
-const Profile = () => {
+export default function Profile() {
+  const [fontsLoaded] = useFonts({
+    'Italic': require('../../assets/fonts/KingsmanDemo-1GVgg.ttf'),
+    'Regular': require('../../assets/fonts/Glametrix-oj9A.otf'),
+    'Light': require('../../assets/fonts/GlametrixLight-0zjo.otf'),
+    'Bold': require('../../assets/fonts/GlametrixBold-4dW6.otf')
+  });
 
   return (
     <View style={{ flex: 1, backgroundColor: 'black' }}>
@@ -68,8 +75,6 @@ const Profile = () => {
     </View>
   )
 }
-
-export default Profile
 
 const styles = StyleSheet.create({
   button: {
