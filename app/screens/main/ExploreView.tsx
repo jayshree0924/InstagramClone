@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, FlatList, Image, TouchableOpacity, TextInput } from 'react-native';
+import { View, Text, StyleSheet, FlatList, Image, TouchableOpacity, TextInput, ScrollView } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import users from '../../users.json';
@@ -44,24 +44,29 @@ export default function Explore() {
 
     return (
         <View style={styles.container}>
-            <View style={styles.searchInput}>
-                <Ionicons name="search-outline" color="#aaa" size={20} style={styles.searchIcon} />
-                <TextInput
-                    value={searchQuery}
-                    onChangeText={handleSearch}
-                    placeholder="Search..."
-                    placeholderTextColor="#888"
-                    cursorColor="white"
-                    style={styles.searchTextInput}
-                />
+            <View style={{marginBottom: 98}}>
+                <View style={styles.searchInput}>
+                    <Ionicons name="search-outline" color="#aaa" size={20} style={styles.searchIcon} />
+                    <TextInput
+                        value={searchQuery}
+                        onChangeText={handleSearch}
+                        placeholder="Search..."
+                        placeholderTextColor="#888"
+                        cursorColor="white"
+                        style={styles.searchTextInput}
+                    />
+                </View>
+                <ScrollView>
+                    <FlatList
+                        data={filteredUsers}
+                        scrollEnabled={false}
+                        keyExtractor={(item) => item.id.toString()}
+                        renderItem={renderUserItem}
+                        style={styles.listContainer}
+                        ListEmptyComponent={<Text style={styles.emptyText}>No users found</Text>}
+                    />
+                </ScrollView>
             </View>
-            <FlatList
-                data={filteredUsers}
-                keyExtractor={(item) => item.id.toString()}
-                renderItem={renderUserItem}
-                style={styles.listContainer}
-                ListEmptyComponent={<Text style={styles.emptyText}>No users found</Text>}
-            />
             <NavBar />
         </View>
     );
@@ -97,7 +102,7 @@ const styles = StyleSheet.create({
     userItem: {
         paddingVertical: 10,
         paddingHorizontal: 10,
-        backgroundColor: '#000',
+        backgroundColor: '#111',
         borderRadius: 10,
         marginBottom: 5,
     },

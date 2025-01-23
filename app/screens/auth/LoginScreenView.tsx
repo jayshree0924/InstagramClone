@@ -26,38 +26,26 @@ export default function LoginScreen() {
         validation();
     }, [email, password]);
 
-    // const validation = () => {
-    //     var newErrors: loginError = {}
-    //     if (email && email.length <= 0) {
-    //         newErrors.email = "Invalid email!"
-    //         setError(newErrors)
-    //     } else {
-    //         setError(newErrors)
-    //     }
-    //     if (password && password.length <= 0) {
-    //         newErrors.password = "Password cannot be empty!"
-    //         setError(newErrors)
-    //     } else {
-    //         setError(newErrors)
-    //     }
-    // }
-
     const validation = () => {
         var newErrors: loginError = {};
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
 
         if (!email || email.length <= 0) {
-            //newErrors.email = "Email cannot be empty!";
+            // newErrors.email = "Email cannot be empty!";
         } else if (!emailRegex.test(email)) {
             newErrors.email = "Invalid email format!";
         }
 
         if (!password || password.length <= 0) {
-            //newErrors.password = "Password cannot be empty!";
+            // newErrors.password = "Password cannot be empty!";
+        } else if (!passwordRegex.test(password)) {
+            newErrors.password = "Password must be at least 8 characters, include an uppercase letter,\n a lowercase letter, a number, and a special character.";
         }
 
         setError(newErrors);
     };
+
 
     const handleLoginPress = () => {
         navigation.navigate('HomeScreen', {
@@ -74,9 +62,9 @@ export default function LoginScreen() {
     }
 
     const [isDisabled, setIsDisabled] = useState(false)
-    // useEffect(() => {
-    //     setIsDisabled(!email || !password);
-    // }, [email, password]);
+    useEffect(() => {
+        setIsDisabled(!email || !password);
+    }, [email, password]);
 
     const resetError = () => {
 

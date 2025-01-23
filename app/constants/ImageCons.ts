@@ -23,7 +23,6 @@ export const Pim = {
     subway: {uri: 'https://i.pinimg.com/originals/59/e9/20/59e92015c286b335aadb81ad41a2975e.jpg'},
     girl: {uri: 'https://i.pinimg.com/736x/15/44/c1/1544c1ae6b89d8a84232ce33197f9bc9.jpg'},
     cafe: {uri: 'https://th.bing.com/th/id/R.d69eccc00b59e30f4bdc9e679abf7c37?rik=2qvakW96YfCalw&pid=ImgRaw&r=0'}
-
 }
 
 export const Sim = {
@@ -37,5 +36,4 @@ export const Sim = {
     vec8: {uri: 'https://360collegereview.com/wp-content/uploads/2022/08/Profile-FEMALE-ICON-TEAM.png'},
     vec9: {uri: 'https://deepasreadingroom.com/wp-content/uploads/2023/12/4042422.png'},
     vec10: {uri: 'https://static.vecteezy.com/system/resources/previews/015/717/853/non_2x/trendy-fashion-designer-vector.jpg'},
-
 }

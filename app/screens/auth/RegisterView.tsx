@@ -26,22 +26,6 @@ export default function LoginScreen() {
         validation();
     }, [email, password]);
 
-    // const validation = () => {
-    //     var newErrors: loginError = {}
-    //     if (email && email.length <= 0) {
-    //         newErrors.email = "Invalid email!"
-    //         setError(newErrors)
-    //     } else {
-    //         setError(newErrors)
-    //     }
-    //     if (password && password.length <= 0) {
-    //         newErrors.password = "Password cannot be empty!"
-    //         setError(newErrors)
-    //     } else {
-    //         setError(newErrors)
-    //     }
-    // }
-
     const validation = () => {
         var newErrors: loginError = {};
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -60,9 +44,7 @@ export default function LoginScreen() {
     };
 
     const handleLoginPress = () => {
-        navigation.navigate('Login', {
-            // username: name,
-        })
+        navigation.navigate('Login', {})
     }
 
     const handleContinue = () => {
@@ -70,9 +52,6 @@ export default function LoginScreen() {
     }
 
     const [isDisabled, setIsDisabled] = useState(false)
-    // useEffect(() => {
-    //     setIsDisabled(!email || !password);
-    // }, [email, password]);
 
     const resetError = () => {
 
@@ -85,7 +64,16 @@ export default function LoginScreen() {
                     <Image source={require('../../assets/instagram.png')} style={styles.loader} />
                     <View style={styles.miniContainer}>
                         <TextInput
-                            placeholder='Username, email address, mobile...'
+                            placeholder='Username'
+                            placeholderTextColor='#5f7889'
+                            cursorColor={'#fff'}
+                            value={email}
+                            onChangeText={setEmail}
+                            onFocus={resetError}
+                            style={styles.input}></TextInput>
+
+                        <TextInput
+                            placeholder='E-mail'
                             placeholderTextColor='#5f7889'
                             cursorColor={'#fff'}
                             value={email}
@@ -98,6 +86,27 @@ export default function LoginScreen() {
                         <View style={[styles.input, { flexDirection: 'row', padding: 8 }]}>
                             <TextInput
                                 placeholder='Password'
+                                value={password}
+                                onChangeText={(text) => setPassword(text)}
+                                secureTextEntry={!isPasswordVisible}
+                                placeholderTextColor='#5f7889'
+                                cursorColor={'#fff'}
+                                style={{ color: 'white', fontSize: 15, flex: 0.98 }}
+                            ></TextInput>
+
+                            <TouchableOpacity onPress={togglePasswordVisibility}>
+                                <Ionicons
+                                    name={isPasswordVisible ? 'eye-off' : 'eye'}
+                                    size={25}
+                                    color={'#5f7889'}
+                                    style={{ marginTop: 10 }}
+                                />
+                            </TouchableOpacity>
+                        </View>
+
+                        <View style={[styles.input, { flexDirection: 'row', padding: 8 }]}>
+                            <TextInput
+                                placeholder='Confirm password'
                                 value={password}
                                 onChangeText={(text) => setPassword(text)}
                                 secureTextEntry={!isPasswordVisible}
@@ -143,11 +152,11 @@ const styles = StyleSheet.create({
         height: 60,
         width: 60,
         alignItems: 'center',
-        marginTop: 150
+        marginTop: 70
 
     },
     miniContainer: {
-        marginTop: 80
+        marginTop: 60
     },
     input: {
         backgroundColor: '#172a35',
@@ -180,7 +189,7 @@ const styles = StyleSheet.create({
         height: 50,
         width: 350,
         justifyContent: 'center',
-        marginTop: 180
+        marginTop: 130
     },
     registerText: {
         color: '#3cadff',

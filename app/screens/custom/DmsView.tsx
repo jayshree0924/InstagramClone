@@ -20,15 +20,16 @@ export default function Dms() {
         { id: '5', name: 'Bob ', image: Pim.anklet, text: 'Sure <3' },
         { id: '6', name: 'Barbara ', image: Pim.dock, text: 'Sent 20m ago' },
         { id: '7', name: 'Emily ', image: Pim.cafe, text: 'Hey! Wassup' },
-        { id: '8', name: 'Charlie', image: Pim.makeup, text: 'Sent 1hr ago' },
+        { id: '8', name: 'Charlie', image: Pim.makeup, text: 'Sent 30m ago' },
         { id: '9', name: 'Betty ', image: Pim.ferris, text: 'Big news!!! x_x' },
-        { id: '10', name: 'Carrie ', image: Pim.coffee, text: 'Sent 2hr ago' },
+        { id: '10', name: 'Carrie ', image: Pim.coffee, text: 'Sent 40m ago' },
     ];
 
     return (
         <View style={{ height: 'auto' }}>
             <FlatList
                 data={data}
+                scrollEnabled={false}
                 renderItem={({ item }) => (
                     <View style={{ flexDirection: 'row', top: 20, left: 5, marginBottom: 20 }}>
                         <TouchableOpacity>

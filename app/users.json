@@ -46,5 +46,17 @@
         "name": "William Murphy",
         "image": "https://www.awakenthegreatnesswithin.com/wp-content/uploads/2020/09/Jake-Paul-Quotes-1024x640.jpg",
         "title": "WILLIAM MURPHY"
+    },
+    {
+        "id": 9,
+        "name": "Betty Jones",
+        "image": "https://i.pinimg.com/originals/50/c7/51/50c75196f4c10f5d4057d11bb15fe702.jpg",
+        "title": "BETTY JONES"
+    },
+    {
+        "id": 10,
+        "name": "Elena Thomas",
+        "image": "https://i.pinimg.com/736x/15/44/c1/1544c1ae6b89d8a84232ce33197f9bc9.jpg",
+        "title": "ELENA THOMAS"
     }
 ]

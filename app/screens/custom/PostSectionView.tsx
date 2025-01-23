@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, Image, TouchableOpacity, FlatList } from 'react-native';
+import { StyleSheet, Text, View, Image, TouchableOpacity, FlatList, Modal, TouchableWithoutFeedback } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { Pim } from '@/app/constants/ImageCons';
 import { useFonts } from 'expo-font';
@@ -14,6 +14,7 @@ export default function PostSection() {
 
     const [hearts, setHearts] = useState<{ [key: string]: boolean }>({});
     const [bookmarks, setBookmarks] = useState<{ [key: string]: boolean }>({});
+    const [isModalVisible, setModalVisible] = useState(false);
 
     const toggleHeart = (id: string) => {
         setHearts((prev) => ({ ...prev, [id]: !prev[id] }));
@@ -28,90 +29,213 @@ export default function PostSection() {
     };
 
     const data = [
-        { id: '1', name: 'Diana Prince', image: Pim.paint, song: "Andrea Vanzo • Valzer d'Invento", post: Pim.coffee, username: '_username_', caption: 'Hey there!', comments: 'View all comments', uploadTime: '1 hour ago' },
-        { id: '2', name: 'George Siem', image: Pim.dior, song: "Andrea Vanzo • Valzer d'Invento", post: Pim.subway, username: '_username_', caption: 'Hey there!', comments: 'View all comments', uploadTime: '1 hour ago' },
-        { id: '3', name: 'Hailey Patrick', image: Pim.rings, song: "Andrea Vanzo • Valzer d'Invento", post: Pim.ferris, username: '_username_', caption: 'Hey there!', comments: 'View all comments', uploadTime: '1 hour ago' },
-        { id: '4', name: 'Bob Smith', image: Pim.anklet, song: "Andrea Vanzo • Valzer d'Invento", post: Pim.dior, username: '_username_', caption: 'Hey there!', comments: 'View all comments', uploadTime: '1 hour ago' },
-        { id: '5', name: 'William Murphy', image: Pim.beach, song: "Andrea Vanzo • Valzer d'Invento", post: Pim.cafe, username: '_username_', caption: 'Hey there!', comments: 'View all comments', uploadTime: '1 hour ago' },
-        { id: '6', name: 'Charlie Davis', image: Pim.makeup, song: "Andrea Vanzo • Valzer d'Invento", post: Pim.beach, username: '_username_', caption: 'Hey there!', comments: 'View all comments', uploadTime: '1 hour ago' },
-        { id: '7', name: 'Emily Grey', image: Pim.cafe, song: "Andrea Vanzo • Valzer d'Invento", post: Pim.night, username: '_username_', caption: 'Hey there!', comments: 'View all comments', uploadTime: '1 hour ago' },
-        { id: '8', name: 'Alice Johnson', image: Pim.wall, song: "Andrea Vanzo • Valzer d'Invento", post: Pim.bracelets, username: '_username_', caption: 'Hey there!', comments: 'View all comments', uploadTime: '1 hour ago' },
-        { id: '9', name: 'Betty Holland', image: Pim.sea, song: "Andrea Vanzo • Valzer d'Invento", post: Pim.rings, username: '_username_', caption: 'Hey there!', comments: 'View all comments', uploadTime: '1 hour ago' },
-        { id: '10', name: 'Elena Thomas', image: Pim.astronaut, song: "Andrea Vanzo • Valzer d'Invento", post: Pim.sky, username: '_username_', caption: 'Hey there!', comments: 'View all comments', uploadTime: '1 hour ago' },
+        { id: '1', name: 'Diana Prince', image: Pim.paint, song: " Tahiti • Love Story", post: Pim.coffee, username: '_username_', caption: 'Hey there!', comments: 'View all comments', uploadTime: '1 hour ago' },
+        { id: '2', name: 'George Siem', image: Pim.dior, song: " Rosa Linn • SNAP", post: Pim.subway, username: '_username_', caption: 'Hey there!', comments: 'View all comments', uploadTime: '1 hour ago' },
+        { id: '3', name: 'Hailey Patrick', image: Pim.rings, song: " Flawed Mangoes • Dramamine", post: Pim.ferris, username: '_username_', caption: 'Hey there!', comments: 'View all comments', uploadTime: '1 hour ago' },
+        { id: '4', name: 'Bob Smith', image: Pim.anklet, song: " Aaron Hibell, Alex Wann • set me free", post: Pim.dior, username: '_username_', caption: 'Hey there!', comments: 'View all comments', uploadTime: '1 hour ago' },
+        { id: '5', name: 'William Murphy', image: Pim.beach, song: " Mac DeMarco • Chamber Of Reflection", post: Pim.cafe, username: '_username_', caption: 'Hey there!', comments: 'View all comments', uploadTime: '1 hour ago' },
+        { id: '6', name: 'Charlie Davis', image: Pim.makeup, song: " Steve Lacy • Bad Habit (Sped Up)", post: Pim.beach, username: '_username_', caption: 'Hey there!', comments: 'View all comments', uploadTime: '1 hour ago' },
+        { id: '7', name: 'Emily Grey', image: Pim.cafe, song: " Manu Chao • Me Gustas Tu", post: Pim.night, username: '_username_', caption: 'Hey there!', comments: 'View all comments', uploadTime: '1 hour ago' },
+        { id: '8', name: 'Alice Johnson', image: Pim.wall, song: " Alonzo • Elle t'a tue", post: Pim.bracelets, username: '_username_', caption: 'Hey there!', comments: 'View all comments', uploadTime: '1 hour ago' },
+        { id: '9', name: 'Betty Holland', image: Pim.sea, song: " Luke Willies • everything works out in the end", post: Pim.rings, username: '_username_', caption: 'Hey there!', comments: 'View all comments', uploadTime: '1 hour ago' },
+        { id: '10', name: 'Elena Thomas', image: Pim.astronaut, song: " Andrea Vanzo • Valzer d'Invento", post: Pim.sky, username: '_username_', caption: 'Hey there!', comments: 'View all comments', uploadTime: '1 hour ago' },
     ];
 
-    const renderPost = ({ item }: { item: typeof data[0] }) => (
-        <View style={styles.post}>
-            <View style={styles.header}>
-                <TouchableOpacity>
-                    <Image source={item.image} style={styles.profileImage} />
-                </TouchableOpacity>
-                <View style={styles.headerText}>
-                    <TouchableOpacity>
-                        <Text style={styles.name}>{item.name}</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity>
-                        <Ionicons name="musical-notes" color="white" size={12}>
-                            <Text style={styles.song}>{item.song}</Text>
-                        </Ionicons>
-                    </TouchableOpacity>
-                </View>
-                <TouchableOpacity>
-                    <Ionicons name="ellipsis-vertical" color="white" size={18} style={styles.moreIcon} />
-                </TouchableOpacity>
-            </View>
-
-            <TouchableOpacity
-                activeOpacity={1}
-                onLongPress={() => handleLongPress(item.id)}
-                delayLongPress={200}
-            >
-                <Image source={item.post} style={styles.image} />
-            </TouchableOpacity>
-
-            <View style={styles.actions}>
-                <TouchableOpacity onPress={() => toggleHeart(item.id)}>
-                    <Ionicons
-                        name={hearts[item.id] ? 'heart' : 'heart-outline'}
-                        color={hearts[item.id] ? 'red' : 'white'}
-                        size={33}
-                        style={styles.actionIcon}
-                    />
-                </TouchableOpacity>
-                <TouchableOpacity>
-                    <Ionicons name="chatbubble-outline" color="white" size={30} style={styles.actionIcon} />
-                </TouchableOpacity>
-                <TouchableOpacity>
-                    <Ionicons name="paper-plane-outline" color="white" size={30} style={styles.actionIcon} />
-                </TouchableOpacity>
-                <TouchableOpacity onPress={() => toggleBookmark(item.id)}>
-                    <Ionicons
-                        name={bookmarks[item.id] ? 'bookmark' : 'bookmark-outline'}
-                        color="white"
-                        size={30}
-                        style={{left: 210}}
-                    />
-                </TouchableOpacity>
-            </View>
-
-            <Text style={styles.likedBy}>
-                Liked by <Text style={styles.bold}>{item.username}</Text> and others
-            </Text>
-            <Text style={styles.caption}>
-                <Text style={styles.bold}>{item.name} </Text>
-                {item.caption}
-            </Text>
-            <TouchableOpacity>
-                <Text style={styles.comments}>{item.comments}</Text>
-            </TouchableOpacity>
-            <Text style={styles.uploadTime}>{item.uploadTime}</Text>
-        </View>
-    );
-
     return (
-        <View>
-            <FlatList data={data} renderItem={renderPost} keyExtractor={(item) => item.id} />
-        </View>
+        <>
+            <FlatList
+                data={data}
+                scrollEnabled={false}
+                renderItem={({ item }) => (
+                    <View style={styles.post}>
+                        <View style={styles.header}>
+                            <TouchableOpacity>
+                                <Image source={item.image} style={styles.profileImage} />
+                            </TouchableOpacity>
+                            <View style={styles.headerText}>
+                                <TouchableOpacity>
+                                    <Text style={styles.name}>{item.name}</Text>
+                                </TouchableOpacity>
+                                <TouchableOpacity>
+                                    <Ionicons name="musical-notes" color="white" size={12}>
+                                        <Text style={styles.song}>{item.song}</Text>
+                                    </Ionicons>
+                                </TouchableOpacity>
+                            </View>
+                            <TouchableOpacity onPress={() => setModalVisible(true)}>
+                                <Ionicons
+                                    name="ellipsis-vertical"
+                                    color="white"
+                                    size={18}
+                                    style={styles.moreIcon}
+                                />
+                            </TouchableOpacity>
+                        </View>
+
+                        <TouchableOpacity
+                            activeOpacity={1}
+                            onLongPress={() => handleLongPress(item.id)}
+                            delayLongPress={300}
+                        >
+                            <Image source={item.post} style={styles.image} />
+                        </TouchableOpacity>
+
+                        <View style={styles.actions}>
+                            <TouchableOpacity onPress={() => toggleHeart(item.id)}>
+                                <Ionicons
+                                    name={hearts[item.id] ? 'heart' : 'heart-outline'}
+                                    color={hearts[item.id] ? 'red' : 'white'}
+                                    size={33}
+                                    style={styles.actionIcon}
+                                />
+                            </TouchableOpacity>
+                            <TouchableOpacity>
+                                <Ionicons
+                                    name="chatbubble-outline"
+                                    color="white"
+                                    size={30}
+                                    style={styles.actionIcon}
+                                />
+                            </TouchableOpacity>
+                            <TouchableOpacity>
+                                <Ionicons
+                                    name="paper-plane-outline"
+                                    color="white"
+                                    size={30}
+                                    style={styles.actionIcon}
+                                />
+                            </TouchableOpacity>
+                            <TouchableOpacity onPress={() => toggleBookmark(item.id)}>
+                                <Ionicons
+                                    name={bookmarks[item.id] ? 'bookmark' : 'bookmark-outline'}
+                                    color="white"
+                                    size={30}
+                                    style={{ left: 220 }}
+                                />
+                            </TouchableOpacity>
+                        </View>
+
+                        <Text style={styles.likedBy}>
+                            Liked by <Text style={styles.bold}>{item.username}</Text> and others
+                        </Text>
+                        <Text style={styles.caption}>
+                            <Text style={styles.bold}>{item.name} </Text>
+                            {item.caption}
+                        </Text>
+                        <TouchableOpacity>
+                            <Text style={styles.comments}>{item.comments}</Text>
+                        </TouchableOpacity>
+                        <Text style={styles.uploadTime}>{item.uploadTime}</Text>
+                    </View>
+                )}
+                keyExtractor={(item) => item.id}
+            />
+            <Modal
+                visible={isModalVisible}
+                transparent
+                animationType="slide"
+                onRequestClose={() => setModalVisible(false)}
+            >
+                <TouchableWithoutFeedback onPress={() => setModalVisible(false)}>
+                    <View style={styles.modalContainer}>
+                        <View style={styles.modalContent}>
+                            <View style={{ flexDirection: 'row', justifyContent: 'space-around', height: 80, top: 10 }}>
+                                <TouchableOpacity style={{ height: 30 }}>
+                                    <View>
+                                        <Ionicons
+                                            name='bookmark-outline'
+                                            size={30}
+                                            color={'white'}
+                                            style={{ left: 20 }} >
+                                        </Ionicons>
+                                        <Text style={{ fontSize: 15, color: 'white', left: 15, top: 5}}>Save</Text>
+                                    </View>
+                                </TouchableOpacity>
+                                <TouchableOpacity style={{ height: 30 }}>
+                                    <Ionicons
+                                        name='qr-code-outline'
+                                        size={30}
+                                        color={'white'}
+                                        style={{ left: 20 }} >
+                                    </Ionicons>
+                                    <Text style={{ fontSize: 15, color: 'white', top: 5}}>QR Code</Text>
+                                </TouchableOpacity>
+                            </View>
+                            <TouchableOpacity>
+                                <View style={{ flexDirection: 'row', marginVertical: 10 }} >
+                                    <Ionicons
+                                        name='paper-plane-outline'
+                                        size={30}
+                                        color={'white'}
+                                        style={{ marginRight: 20 }}>
+                                    </Ionicons>
+                                    <View>
+                                        <Text style={{ fontSize: 12, color: 'white' }}>We're moving things around!</Text>
+                                        <Text style={{ fontSize: 12, color: '#176bf4' }}>See where to share and link</Text>
+                                    </View>
+                                </View>
+                            </TouchableOpacity>
+                            <TouchableOpacity>
+                                <View style={{ flexDirection: 'row', marginVertical: 15 }} >
+                                    <Ionicons
+                                        name='star-outline'
+                                        size={30}
+                                        color={'white'}
+                                        style={{ marginRight: 20 }}>
+                                    </Ionicons>
+                                    <Text style={{ fontSize: 15, color: 'white', top: 5 }}>Add to favourites</Text>
+                                </View>
+                            </TouchableOpacity>
+                            <TouchableOpacity>
+                                <View style={{ flexDirection: 'row', marginVertical: 15 }} >
+                                    <Ionicons
+                                        name='person-remove-outline'
+                                        size={30}
+                                        color={'white'}
+                                        style={{ marginRight: 20 }}>
+                                    </Ionicons>
+                                    <Text style={{ fontSize: 15, color: 'white', top: 5 }}>Unfollow</Text>
+                                </View>
+                            </TouchableOpacity>
+                            <TouchableOpacity>
+                                <View style={{ flexDirection: 'row', marginVertical: 15 }} >
+                                    <Ionicons
+                                        name='information-circle-outline'
+                                        size={30}
+                                        color={'white'}
+                                        style={{ marginRight: 20 }}>
+                                    </Ionicons>
+                                    <Text style={{ fontSize: 15, color: 'white', top: 5 }}>Why you're seeing this post?</Text>
+                                </View>
+                            </TouchableOpacity>
+                            <TouchableOpacity>
+                                <View style={{ flexDirection: 'row', marginVertical: 15 }} >
+                                    <Ionicons
+                                        name='eye-off-outline'
+                                        size={30}
+                                        color={'white'}
+                                        style={{ marginRight: 20 }}>
+                                    </Ionicons>
+                                    <Text style={{ fontSize: 15, color: 'white', top: 5 }}>Hide</Text>
+                                </View>
+                            </TouchableOpacity>
+                            <TouchableOpacity>
+                                <View style={{ flexDirection: 'row', marginVertical: 15 }} >
+                                    <Ionicons
+                                        name='alert-circle-outline'
+                                        size={30}
+                                        color={'crimson'}
+                                        style={{ marginRight: 20 }}>
+                                    </Ionicons>
+                                    <Text style={{ fontSize: 15, color: 'crimson', top: 5 }}>Report</Text>
+                                </View>
+                            </TouchableOpacity>
+
+                        </View>
+                    </View>
+                </TouchableWithoutFeedback>
+            </Modal>
+        </>
     );
 
     // return (
@@ -276,6 +400,7 @@ export default function PostSection() {
     //         </View>
     //     </ScrollView>
     // )
+
 }
 
 const styles = StyleSheet.create({
@@ -295,7 +420,7 @@ const styles = StyleSheet.create({
         marginRight: 15,
     },
     headerText: {
-        flex: 0.96,
+        flex: 0.98,
     },
     name: {
         fontSize: 20,
@@ -318,7 +443,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         marginTop: 10,
         marginBottom: 5,
-        marginLeft: 10,
+        marginLeft: 5,
     },
     actionIcon: {
         marginRight: 10,
@@ -351,7 +476,14 @@ const styles = StyleSheet.create({
         fontFamily: 'Regular',
         marginLeft: 10,
     },
+    modalContainer: {
+        flex: 1,
+        justifyContent: 'flex-end',
+    },
+    modalContent: {
+        backgroundColor: '#222',
+        padding: 20,
+        borderTopLeftRadius: 20,
+        borderTopRightRadius: 20,
+    },
 });
-
-
-

@@ -34,6 +34,7 @@ export default function Notes() {
         <View style={styles.container}>
             <FlatList
                 data={data}
+                scrollEnabled={false}
                 horizontal
                 renderItem={renderItem}
                 keyExtractor={(item) => item.id}

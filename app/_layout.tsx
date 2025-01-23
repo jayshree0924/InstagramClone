@@ -5,6 +5,7 @@ import { StatusBar } from 'react-native';
 import LoginScreen from './screens/auth/LoginScreenView';
 import HomeScreen from './screens/main/HomeScreenView';
 import ProfileView from './screens/main/ProfileView';
+import Post from './screens/main/PostView';
 import RegisterView from './screens/auth/RegisterView';
 import ExploreView from './screens/main/ExploreView';
 import SplashStory from './screens/main/SplashStoryView';
@@ -28,6 +29,7 @@ export default function App() {
         <Stack.Screen name="HomeScreen" component={HomeScreen} options={{ headerShown: false }} />
         <Stack.Screen name="Explore" component={ExploreView} options={{ headerShown: false }} />
         <Stack.Screen name="Profile" component={ProfileView} options={{ headerShown: false }} />
+        <Stack.Screen name="Post" component={Post} options={{ headerShown: false }} />
         <Stack.Screen name="SplashStory" component={SplashStory} options={{ headerShown: false }} />
         <Stack.Screen name="Inbox" component={Inbox} options={{ headerShown: false }} />
         <Stack.Screen name="Notification" component={Notification} options={{ headerShown: false }} />
